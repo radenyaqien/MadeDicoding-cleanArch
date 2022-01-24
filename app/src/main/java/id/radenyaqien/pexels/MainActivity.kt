@@ -32,8 +32,10 @@ class MainActivity : AppCompatActivity() {
         }
         lifecycleScope.launchWhenStarted {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viemodel.image().collect {
-                  mAdapter.submitData(it)
+                viemodel.data.collect {
+                    it.pagin?.let { dat ->
+                        mAdapter.submitData(dat)
+                    }
                 }
             }
 

@@ -13,6 +13,9 @@ interface PexelsDao {
     @Query("SELECT * FROM pexels_image")
     fun getAllImages(): PagingSource<Int, ImageEntity>
 
+    @Query("SELECT * FROM pexels_image where isFavorite = 1 ")
+    fun getfavoriteImages(): PagingSource<Int, ImageEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addImages(images: List<ImageEntity>)
 

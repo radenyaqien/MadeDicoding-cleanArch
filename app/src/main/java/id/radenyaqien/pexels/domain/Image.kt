@@ -7,4 +7,5 @@ data class Image(
     val src: String?,
     val url: String?,
     val alt: String?,
+    val isfavorite : Boolean = false
 )

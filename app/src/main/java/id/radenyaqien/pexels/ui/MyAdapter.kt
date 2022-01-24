@@ -12,8 +12,9 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import id.radenyaqien.pexels.R
 import id.radenyaqien.pexels.data.local.entity.ImageEntity
+import id.radenyaqien.pexels.domain.Image
 
-class MyAdapter : PagingDataAdapter<ImageEntity, MyAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class MyAdapter : PagingDataAdapter<Image, MyAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
 
     inner class ListViewHolder(binding: View) :
@@ -21,7 +22,7 @@ class MyAdapter : PagingDataAdapter<ImageEntity, MyAdapter.ListViewHolder>(DIFF_
 
         private val textv: TextView = binding.findViewById(R.id.txt_test)
         private val imageView: ImageView = binding.findViewById(R.id.image)
-        fun bind(film: ImageEntity) {
+        fun bind(film: Image) {
             textv.text = film.url
             imageView.load(film.src) {
                 crossfade(true)
@@ -32,12 +33,12 @@ class MyAdapter : PagingDataAdapter<ImageEntity, MyAdapter.ListViewHolder>(DIFF_
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ImageEntity>() {
-            override fun areItemsTheSame(oldItem: ImageEntity, newItem: ImageEntity): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Image>() {
+            override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: ImageEntity, newItem: ImageEntity): Boolean {
+            override fun areContentsTheSame(oldItem: Image, newItem: Image): Boolean {
                 return oldItem == newItem
             }
         }

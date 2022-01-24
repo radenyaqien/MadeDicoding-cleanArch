@@ -22,9 +22,11 @@ data class ImageEntity(
     val src: String?,
     @ColumnInfo(name = "alt")
     val alt: String?,
+    @ColumnInfo(name = "isFavorite")
+    val isFavorite: Boolean = false,
 ){
     fun toImageDomain() : Image = Image(
-        id, photographer, photographerUrl, src, url, alt
+        id, photographer, photographerUrl, src, url, alt,isFavorite
     )
 
 }
