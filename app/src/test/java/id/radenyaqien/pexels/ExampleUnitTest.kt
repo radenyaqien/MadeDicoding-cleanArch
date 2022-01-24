@@ -1,4 +1,4 @@
-package id.radenyaqien.unsplashapp
+package id.radenyaqien.pexels
 
 import org.junit.Test
 

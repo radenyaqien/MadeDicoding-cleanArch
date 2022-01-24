@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.radenyaqien.unsplashapp">
+    package="id.radenyaqien.pexels">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name="id.radenyaqien.pexels.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UnsplashApp">
         <activity
-            android:name=".MainActivity"
+            android:name="id.radenyaqien.pexels.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

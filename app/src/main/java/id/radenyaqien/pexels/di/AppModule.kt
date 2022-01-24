@@ -1,18 +1,21 @@
-package id.radenyaqien.unsplashapp.di
+package id.radenyaqien.pexels.di
 
 
 import android.content.Context
+import androidx.paging.ExperimentalPagingApi
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.radenyaqien.unsplashapp.BuildConfig
+import id.radenyaqien.pexels.BuildConfig
+import id.radenyaqien.pexels.data.PexelsRepository
 
-import id.radenyaqien.unsplashapp.data.local.LocalDB
-import id.radenyaqien.unsplashapp.data.local.dao.UnsplashDao
-import id.radenyaqien.unsplashapp.utils.Constant
+import id.radenyaqien.pexels.data.local.LocalDB
+import id.radenyaqien.pexels.data.remote.PexelsApi
+import id.radenyaqien.pexels.domain.Repository
+import id.radenyaqien.pexels.utils.Constant
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
@@ -52,7 +55,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient) : Retrofit{
         return Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
+            .baseUrl("https://api.pexels.com/v1/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -61,11 +64,28 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context) : LocalDB {
-        return Room.databaseBuilder(context.applicationContext, LocalDB::class.java,"imagedb").build()
+        return Room.databaseBuilder(
+            context.applicationContext,
+            LocalDB::class.java,
+            Constant.DATABASE_NAME
+        ).build()
     }
+//    @Provides
+//    @Singleton
+//    fun provideDao(db: LocalDB) : PexelsDao {
+//        return db.pexelsDao()
+//    }
+//    @Provides
+//    @Singleton
+//    fun provideRemoteKeysDao(db: LocalDB) : PexelsRemoteKeysDao {
+//        return db.remotekeysDao()
+//    }
+
+    @ExperimentalPagingApi
     @Provides
     @Singleton
-    fun provideDao(db: LocalDB) : UnsplashDao {
-        return db.unsplashDao()
+    fun provideRepository(pexelsApi: PexelsApi,localDB: LocalDB) : Repository {
+        return PexelsRepository(pexelsApi,localDB)
     }
+
 }

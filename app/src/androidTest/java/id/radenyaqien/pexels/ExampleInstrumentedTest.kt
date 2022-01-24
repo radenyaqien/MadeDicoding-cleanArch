@@ -1,4 +1,4 @@
-package id.radenyaqien.unsplashapp
+package id.radenyaqien.pexels
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
