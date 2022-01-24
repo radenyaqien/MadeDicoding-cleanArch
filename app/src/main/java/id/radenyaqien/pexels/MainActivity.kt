@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.radenyaqien.pexels.ui.ListViewModel
-import id.radenyaqien.pexels.ui.MyAdapter
+import id.radenyaqien.core.ui.MyAdapter
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -31,16 +33,15 @@ class MainActivity : AppCompatActivity() {
             adapter = mAdapter
         }
         lifecycleScope.launchWhenStarted {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viemodel.data.collect {
-                    it.pagin?.let { dat ->
-                        mAdapter.submitData(dat)
-                    }
+            //repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viemodel.dat().collect {
+                    //it.pagin?.let {dat ->
+                        mAdapter.submitData(it)
+                    //}
                 }
-            }
+            //}
 
         }
-
     }
 
 

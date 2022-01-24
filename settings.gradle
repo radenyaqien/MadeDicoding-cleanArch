@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PexelsApp"
 include ':app'
+include ':core'
