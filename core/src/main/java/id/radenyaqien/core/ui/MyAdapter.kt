@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import id.radenyaqien.core.R
-import id.radenyaqien.core.domain.Image
+import id.radenyaqien.core.domain.PexelsImage
 
-class MyAdapter : PagingDataAdapter<Image, MyAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class MyAdapter : PagingDataAdapter<PexelsImage, MyAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     inner class ListViewHolder(binding: View) :
         RecyclerView.ViewHolder(binding) {
 
         private val textv: TextView = binding.findViewById(R.id.txt_test)
         private val imageView: ImageView = binding.findViewById(R.id.image)
-        fun bind(film: Image) {
+        fun bind(film: PexelsImage) {
             textv.text = film.url
             imageView.load(film.src) {
                 crossfade(true)
@@ -28,12 +28,12 @@ class MyAdapter : PagingDataAdapter<Image, MyAdapter.ListViewHolder>(DIFF_CALLBA
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Image>() {
-            override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PexelsImage>() {
+            override fun areItemsTheSame(oldItem: PexelsImage, newItem: PexelsImage): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Image, newItem: Image): Boolean {
+            override fun areContentsTheSame(oldItem: PexelsImage, newItem: PexelsImage): Boolean {
                 return oldItem == newItem
             }
         }

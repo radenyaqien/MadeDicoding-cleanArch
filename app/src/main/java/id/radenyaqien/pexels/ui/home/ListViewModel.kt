@@ -1,13 +1,9 @@
-package id.radenyaqien.pexels.ui
+package id.radenyaqien.pexels.ui.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.radenyaqien.core.domain.GetImageUsecase
-import id.radenyaqien.core.domain.Image
-import kotlinx.coroutines.flow.*
+import id.radenyaqien.core.domain.image.GetImageUsecase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +13,7 @@ class ListViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    fun dat() = usecase.invoke()
+    val data = usecase.invoke()
 //    private val _data : MutableStateFlow<State> = MutableStateFlow(State())
 //    val data : StateFlow<State> get() = _data.asStateFlow()
 //    private fun loadImage()  {

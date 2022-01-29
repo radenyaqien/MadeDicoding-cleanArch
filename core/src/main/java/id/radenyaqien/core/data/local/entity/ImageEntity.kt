@@ -3,7 +3,7 @@ package id.radenyaqien.core.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import id.radenyaqien.core.domain.Image
+import id.radenyaqien.core.domain.PexelsImage
 import id.radenyaqien.core.utils.Constant
 
 @Entity(tableName = Constant.PEXELS_IMAGE)
@@ -25,7 +25,7 @@ data class ImageEntity(
     @ColumnInfo(name = "isFavorite")
     val isFavorite: Boolean = false,
 ){
-    fun toImageDomain() : Image = Image(
+    fun toImageDomain() : PexelsImage = PexelsImage(
         id, photographer, photographerUrl, src, url, alt,isFavorite
     )
 

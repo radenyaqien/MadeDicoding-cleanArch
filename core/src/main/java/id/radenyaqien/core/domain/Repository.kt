@@ -7,4 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface Repository {
 
     fun getAllImages() : Flow<PagingData<ImageEntity>>
+
+    fun getImageById(id :String) : Flow<ImageEntity?>
+
+    fun getFavoriteImage() : Flow<List<ImageEntity>>
 }

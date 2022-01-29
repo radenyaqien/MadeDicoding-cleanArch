@@ -3,8 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1643009778908.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1643014457321.xml" value="0.11064189189189189" />
+        <entry key="../../../../layout/compose-model-1643037902293.xml" value="0.9314079422382672" />
+        <entry key="../../../../layout/compose-model-1643039333277.xml" value="0.19679054054054054" />
+        <entry key="../../../../layout/compose-model-1643167969214.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1643170184155.xml" value="0.2361111111111111" />
+        <entry key="../../../../layout/compose-model-1643176495860.xml" value="0.2361111111111111" />
+        <entry key="../../../../layout/compose-model-1643180328455.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1643184249656.xml" value="0.32685185185185184" />
+        <entry key="../../../../layout/compose-model-1643184352673.xml" value="0.32685185185185184" />
+        <entry key="../../../../layout/compose-model-1643187028295.xml" value="0.32685185185185184" />
+        <entry key="app/src/main/res/drawable-hdpi/ic_heart.xml" value="0.2282051282051282" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13703703703703704" />
         <entry key="app/src/main/res/layout/item.xml" value="0.1" />
+        <entry key="core/src/main/res/layout/item.xml" value="0.1" />
       </map>
     </option>
   </component>

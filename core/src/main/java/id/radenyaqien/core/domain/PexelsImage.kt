@@ -1,6 +1,6 @@
 package id.radenyaqien.core.domain
 
-data class Image(
+data class PexelsImage(
     val id: String,
     val photographer: String?,
     val photographerUrl: String?,
