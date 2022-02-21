@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,22 +14,18 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.rememberImagePainter
+import coil.transform.CircleCropTransformation
 import id.radenyaqien.core.domain.PexelsImage
 import id.radenyaqien.pexels.R
-import id.radenyaqien.pexels.navigation.Screen
-import id.radenyaqien.pexels.ui.ErrorItem
-import id.radenyaqien.pexels.ui.LoadingItem
-import id.radenyaqien.pexels.ui.LoadingView
 
 @Composable
 fun ListContent(
     list: LazyPagingItems<PexelsImage>,
-    navHostController: NavHostController
+    onclickItem: (String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -41,8 +36,8 @@ fun ListContent(
             items = list
         ) { pexels ->
             pexels?.let {
-                PexelsItem(pexelsImage = it) {
-                    navHostController.navigate(Screen.Detail.route + "/${it.id}")
+                PexelsItem(pexelsImage = it) { id ->
+                    onclickItem(id)
                 }
             }
         }
@@ -81,13 +76,19 @@ fun ListContent(
 @Composable
 fun PexelsItem(
     pexelsImage: PexelsImage,
-    onclickItem: () -> Unit
+    onclickItem: (String) -> Unit
 ) {
 
-    val painter = rememberImagePainter(data = pexelsImage.src) {
+    val painter = rememberImagePainter(
+        data = pexelsImage.src,
+
+
+        ) {
         crossfade(durationMillis = 1000)
         error(R.drawable.placeholder)
+        transformations(CircleCropTransformation())
         placeholder(R.drawable.placeholder)
+
     }
 
 
@@ -96,7 +97,7 @@ fun PexelsItem(
             .fillMaxWidth()
 
             .clickable {
-                onclickItem()
+                onclickItem(pexelsImage.id)
             },
         elevation = 10.dp
     ) {

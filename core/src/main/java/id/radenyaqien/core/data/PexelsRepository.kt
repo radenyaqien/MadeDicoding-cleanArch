@@ -10,12 +10,7 @@ import id.radenyaqien.core.data.paging.PexelsRemoteMediator
 import id.radenyaqien.core.data.remote.api.PexelsApi
 import id.radenyaqien.core.domain.Repository
 import id.radenyaqien.core.utils.Constant.ITEMS_PER_PAGE
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -28,21 +23,31 @@ class PexelsRepository @Inject constructor(
         val pagingSourceFactory = { db.pexelsDao().getAllImages() }
         val pager = Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
-            remoteMediator = PexelsRemoteMediator(pexelsApi, db),
-            pagingSourceFactory = pagingSourceFactory
+            pagingSourceFactory = pagingSourceFactory,
+            remoteMediator = PexelsRemoteMediator(pexelsApi, db)
         )
         return pager.flow
     }
 
-    override fun getImageById(id: String) = flow {
-        emit(db.pexelsDao().getImageById(id))
+    override fun getImageById(id: String): Flow<ImageEntity?> {
+
+        return db.pexelsDao().getImageById(id)
     }
 
-    override fun getFavoriteImage() = flow {
-        val data = db.pexelsDao().getfavoriteImages()
-        Timber.d("getFavoriteImage: $data")
-        emitAll(data)
-    }.flowOn(Dispatchers.IO)
+
+    override fun getFavoriteImage(): Flow<List<ImageEntity>> {
+        return db.pexelsDao().getAllImagesFav()
+    }
+
+
+    override suspend fun insertFavorite(model: ImageEntity) {
+        db.pexelsDao().updateFavoriteById(true, model.id)
+    }
+
+
+    override suspend fun deleteFavorite(model: ImageEntity) {
+        db.pexelsDao().updateFavoriteById(false, model.id)
+    }
 
 
 }

@@ -23,7 +23,7 @@ data class ImageEntity(
     @ColumnInfo(name = "alt")
     val alt: String?,
     @ColumnInfo(name = "isFavorite")
-    val isFavorite: Boolean = false,
+    var isFavorite: Boolean = false,
 ){
     fun toImageDomain() : PexelsImage = PexelsImage(
         id, photographer, photographerUrl, src, url, alt,isFavorite

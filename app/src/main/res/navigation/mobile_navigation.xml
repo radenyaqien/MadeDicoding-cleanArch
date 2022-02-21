@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="id.radenyaqien.pexels.ui.home.HomeFragment"
+        android:label="@string/title_home">
+        <argument
+            android:name="pexelsid"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="id.radenyaqien.pexels.ui.imagedetail.DetailFragment"
+        android:label="@string/title_home"
+
+        />
+    <fragment
+
+        android:id="@+id/navigation_favorite"
+        android:name="id.radenyaqien.dynamicfeature.FavoriteFragment"
+        android:label="@string/favorite"
+        app:moduleName="favorite">
+
+        <argument
+            android:name="pexelsid"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_detail"
+            app:destination="@id/navigation_detail"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
+</navigation>

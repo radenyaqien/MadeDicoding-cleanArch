@@ -58,10 +58,10 @@ class PexelsRemoteMediator @Inject constructor(
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
 
             db.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    remoteDao.deleteAllRemoteKeys()
-                    pexelsDao.deleteAllImages()
-                }
+//                if (loadType == LoadType.REFRESH) {
+//                    remoteDao.deleteAllRemoteKeys()
+//                    pexelsDao.deleteAllImages()
+//                }
                 val keys = response.data.map { pexels ->
                     PexelsRemoteKeys(
                         id = pexels.id.toString(),

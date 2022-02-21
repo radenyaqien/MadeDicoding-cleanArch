@@ -12,4 +12,5 @@ abstract class LocalDB : RoomDatabase(){
 
     abstract fun pexelsDao() : PexelsDao
     abstract fun remotekeysDao() : PexelsRemoteKeysDao
+
 }

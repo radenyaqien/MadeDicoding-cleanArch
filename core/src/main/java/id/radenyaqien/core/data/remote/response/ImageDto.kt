@@ -35,7 +35,7 @@ data class ImageDto(
             photographer,
             photographerUrl,
             url,
-            src.medium,
+            src.large2x,
             alt
         )
     }

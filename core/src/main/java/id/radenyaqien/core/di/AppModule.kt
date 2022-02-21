@@ -9,14 +9,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.radenyaqien.core.*
+import id.radenyaqien.core.BuildConfig
 import id.radenyaqien.core.data.PexelsRepository
-import id.radenyaqien.core.domain.Repository
 import id.radenyaqien.core.data.local.LocalDB
 import id.radenyaqien.core.data.remote.api.PexelsApi
+import id.radenyaqien.core.domain.Repository
 import id.radenyaqien.core.utils.Constant
-
-
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
@@ -53,7 +51,7 @@ object AppModule {
 
          client.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
              .writeTimeout(5, TimeUnit.MINUTES) // write timeout
-             .readTimeout(5, TimeUnit.MINUTES);
+             .readTimeout(5, TimeUnit.MINUTES)
      }.build()
     }
 
@@ -61,7 +59,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient) : Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://api.pexels.com/v1/")
+            .baseUrl(Constant.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -76,16 +74,6 @@ object AppModule {
             Constant.DATABASE_NAME
         ).build()
     }
-//    @Provides
-//    @Singleton
-//    fun provideDao(db: LocalDB) : PexelsDao {
-//        return db.pexelsDao()
-//    }
-//    @Provides
-//    @Singleton
-//    fun provideRemoteKeysDao(db: LocalDB) : PexelsRemoteKeysDao {
-//        return db.remotekeysDao()
-//    }
 
     @ExperimentalPagingApi
     @Provides

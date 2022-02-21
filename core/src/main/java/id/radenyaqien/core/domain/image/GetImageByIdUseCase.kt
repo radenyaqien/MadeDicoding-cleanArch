@@ -11,7 +11,6 @@ class GetImageByIdUseCase @Inject constructor(
     private val repository: Repository
 ) {
 
-
     operator fun invoke(
         id: String
     ): Flow<PexelsImage?> = repository.getImageById(id).map {

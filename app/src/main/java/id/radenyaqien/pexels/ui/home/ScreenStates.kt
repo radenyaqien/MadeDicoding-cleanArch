@@ -1,4 +1,4 @@
-package id.radenyaqien.pexels.ui
+package id.radenyaqien.pexels.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator

@@ -9,8 +9,8 @@ import javax.inject.Inject
 class GetImageFavoriteUseCase @Inject constructor(
     private val repository: Repository
 ) {
-    operator fun invoke(): Flow<List<PexelsImage>> = repository.getFavoriteImage().map {
-        it.map {
+    operator fun invoke(): Flow<List<PexelsImage>> = repository.getFavoriteImage().map { list ->
+        list.map {
             it.toImageDomain()
         }
     }
