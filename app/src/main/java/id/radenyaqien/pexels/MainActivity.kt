@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navHostFragment =
@@ -32,7 +31,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_favorite
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(
+            navController,
+            appBarConfiguration
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

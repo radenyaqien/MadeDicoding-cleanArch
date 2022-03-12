@@ -15,10 +15,9 @@ import id.radenyaqien.core.data.local.LocalDB
 import id.radenyaqien.core.data.remote.api.PexelsApi
 import id.radenyaqien.core.domain.Repository
 import id.radenyaqien.core.utils.Constant
-import okhttp3.CipherSuite
-import okhttp3.ConnectionSpec
-import okhttp3.OkHttpClient
-import okhttp3.TlsVersion
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,12 +30,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideClient() : OkHttpClient{
-     return  OkHttpClient().newBuilder().also { client ->
+    fun provideClient(): OkHttpClient {
+        val hostname = "www.pexels.com"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/t5uUD8NoY8LBKCTw7ojA6qE3slJ001VHL3Sa+dUXnxk=")
+            .add(hostname, "sha256/t5uUD8NoY8LBKCTw7ojA6qE3slJ001VHL3Sa+dUXnxk=")
+            .add(hostname, "sha256/t5uUD8NoY8LBKCTw7ojA6qE3slJ001VHL3Sa+dUXnxk=")
+            .add(hostname, "sha256/t5uUD8NoY8LBKCTw7ojA6qE3slJ001VHL3Sa+dUXnxk=")
+            .build()
+        return OkHttpClient().newBuilder().also { client ->
             if (BuildConfig.DEBUG) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
                 client.addInterceptor(loggingInterceptor)
+                    .certificatePinner(certificatePinner)
             } else {
                 val spec: ConnectionSpec = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                     .tlsVersions(TlsVersion.TLS_1_2)
@@ -49,9 +56,10 @@ object AppModule {
                 client.connectionSpecs(listOf(spec))
             }
 
-         client.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
-             .writeTimeout(5, TimeUnit.MINUTES) // write timeout
-             .readTimeout(5, TimeUnit.MINUTES)
+            client.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+                .writeTimeout(5, TimeUnit.MINUTES) // write timeout
+                .readTimeout(5, TimeUnit.MINUTES)
+                .certificatePinner(certificatePinner)
      }.build()
     }
 
@@ -68,11 +76,15 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context) : LocalDB {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("mainulyaqin".toCharArray())
+        val factory = SupportFactory(passphrase)
         return Room.databaseBuilder(
             context.applicationContext,
             LocalDB::class.java,
             Constant.DATABASE_NAME
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 
     @ExperimentalPagingApi

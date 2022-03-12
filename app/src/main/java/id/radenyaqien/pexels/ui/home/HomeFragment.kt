@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
         return ComposeView(requireContext()).apply {
 
             setContent {
-
                 PexelsAppTheme {
                     val data = viewModel.data.collectAsLazyPagingItems()
                     ListContent(list = data) {

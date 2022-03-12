@@ -21,9 +21,15 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -51,9 +57,10 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:5.0.0-alpha.3'
     api 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
 
-    api("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
-    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    api("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-alpha04")
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha04"
 
-
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.2.0"
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 }
